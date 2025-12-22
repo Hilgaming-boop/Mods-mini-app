@@ -73,13 +73,23 @@ function renderMods(mods) {
     }
 
     mods.forEach(mod => {
-        // Extract ID from title string "Name | ID-001" or fallback
-        const displayId = mod.title.split('|')[1] ? mod.title.split('|')[1].trim() : 'NEW';
+        // Extrai ID e Título
+        const displayId = mod.title.split('|')[1] ? mod.title.split('|')[1].trim() : 'MOD';
         const displayTitle = mod.title.split('|')[0].trim();
+
+        // Lógica da Etiqueta (Badge)
+        let badgeHtml = '';
+        if (mod.tag) {
+            // Se a tag for "NOVO", usa a classe .novo, senão usa .hot
+            const tagClass = mod.tag.toUpperCase() === 'NOVO' ? 'novo' : 'hot';
+            badgeHtml = `<span class="badge ${tagClass}">${mod.tag}</span>`;
+        }
 
         const card = document.createElement('div');
         card.className = 'mod-card';
+        // Inserimos o badgeHtml antes da imagem
         card.innerHTML = `
+            ${badgeHtml}
             <img src="${mod.images[0]}" alt="${displayTitle}" class="card-img" loading="lazy">
             <div class="card-info">
                 <h3 class="card-title">${displayTitle}</h3>
@@ -91,6 +101,7 @@ function renderMods(mods) {
         gridContainer.appendChild(card);
     });
 }
+
 
 /* =========================================
    NAVIGATION & DETAILS
