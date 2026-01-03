@@ -81,7 +81,7 @@ function renderMods(mods) {
         let badgeHtml = '';
         if (mod.tag) {
             // Se a tag for "NOVO", usa a classe .novo, senão usa .hot
-            const tagClass = mod.tag.toUpperCase() === 'NEW' ? 'novo' : 'hot';
+            const tagClass = mod.tag.toUpperCase() === 'NEW' ? 'new' : 'hot';
             badgeHtml = `<span class="badge ${tagClass}">${mod.tag}</span>`;
         }
 
