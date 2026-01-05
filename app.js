@@ -136,7 +136,30 @@ function renderDetails(mod) {
             <i class="fa-solid fa-download"></i>
         </button>
     `).join('');
+ // CRIA A SEÇÃO DE INSTRUÇÕES SE EXISTIR NO JSON
+    let instructionsHtml = '';
+    if (mod.instructions) {
+        instructionsHtml = `
+            <div class="instructions-box">
+                <span class="instructions-title">🛠️ How to Install:</span>
+                ${mod.instructions}
+            </div>
+        `;
+    }
 
+    // ADICIONE O instructionsHtml no innerHTML da sua modal/página de detalhes
+    // Exemplo de onde inserir:
+    modalContainer.innerHTML = `
+        <h2>${mod.title}</h2>
+        ${videoHtml}
+        ${instructionsHtml} 
+        <div class="download-buttons">
+            ${mod.downloads.map(d => `<a href="${d.url}" class="btn">${d.label}</a>`).join('')}
+        </div>
+    `;
+    
+    // ... restante do código para abrir a modal ...
+}
     // Safe YouTube Embed
     let videoHtml = '';
     if (mod.video) {
