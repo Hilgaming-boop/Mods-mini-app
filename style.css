@@ -198,6 +198,46 @@ body {
     gap: 10px;
     margin-top: 20px;
 }
+/* Título na página de detalhes */
+.detail-title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+/* Caixa de Instruções Estilizada */
+.instructions-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.instructions-title {
+    display: block;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: #fff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.instructions-box p {
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.dl-header {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
 
 .dl-btn {
     background: linear-gradient(45deg, #00b09b, #96c93d); /* Gaming Gradient */
@@ -274,25 +314,4 @@ body {
 .badge.hot {
     background: linear-gradient(45deg, #ff9900, #ffcc00);
     color: #000;
-}
-.instructions-box {
-    background: #1a1a1a;
-    border-left: 4px solid #ff0055;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 5px;
-    text-align: left;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    white-space: pre-line; /* Mantém as quebras de linha do JSON */
-    color: #ccc;
-}
-
-.instructions-title {
-    color: #fff;
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-    text-transform: uppercase;
-    font-size: 0.8rem;
 }
