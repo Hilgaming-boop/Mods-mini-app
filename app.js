@@ -126,45 +126,14 @@ function openModDetails(mod) {
 }
 
 function renderDetails(mod) {
-    // Generate Slideshow HTML
-    const imagesHtml = mod.images.map(img => `<img src="${img}" class="slide-img">`).join('');
+    // 1. Galeria de Imagens
+    const imagesHtml = mod.images.map(img => `<img src="${img}" class="slide-img" alt="Screenshot">`).join('');
     
-    // Generate Buttons HTML
-    const buttonsHtml = mod.downloads.map(dl => `
-        <button class="dl-btn" onclick="handleMonetizedDownload('${dl.url}', '${dl.label}')">
-            <span>${dl.label}</span>
-            <i class="fa-solid fa-download"></i>
-        </button>
-    `).join('');
- // CRIA A SEÇÃO DE INSTRUÇÕES SE EXISTIR NO JSON
-    let instructionsHtml = '';
-    if (mod.instructions) {
-        instructionsHtml = `
-            <div class="instructions-box">
-                <span class="instructions-title">🛠️ How to Install:</span>
-                ${mod.instructions}
-            </div>
-        `;
-    }
-
-    // ADICIONE O instructionsHtml no innerHTML da sua modal/página de detalhes
-    // Exemplo de onde inserir:
-    modalContainer.innerHTML = `
-        <h2>${mod.title}</h2>
-        ${videoHtml}
-        ${instructionsHtml} 
-        <div class="download-buttons">
-            ${mod.downloads.map(d => `<a href="${d.url}" class="btn">${d.label}</a>`).join('')}
-        </div>
-    `;
-    
-    // ... restante do código para abrir a modal ...
-}
-    // Safe YouTube Embed
+    // 2. Vídeo do YouTube (Tratamento de Link)
     let videoHtml = '';
     if (mod.video) {
-        // Convert watch link to embed if necessary, or assume embed link is provided
-        const videoId = mod.video.split('v=')[1] || mod.video.split('/').pop();
+        // Converte links normais do YT em links de Embed
+        const videoId = mod.video.includes('v=') ? mod.video.split('v=')[1].split('&')[0] : mod.video.split('/').pop().split('?')[0];
         videoHtml = `
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
@@ -172,21 +141,43 @@ function renderDetails(mod) {
         `;
     }
 
+    // 3. Caixa de Instruções (Novo)
+    let instructionsHtml = '';
+    if (mod.instructions) {
+        instructionsHtml = `
+            <div class="instructions-box">
+                <span class="instructions-title"><i class="fa-solid fa-circle-info"></i> How to Install:</span>
+                <p>${mod.instructions.replace(/\n/g, '<br>')}</p>
+            </div>
+        `;
+    }
+
+    // 4. Botões de Download com Monetização
+    const buttonsHtml = mod.downloads.map(dl => `
+        <button class="dl-btn" onclick="handleMonetizedDownload('${dl.url}', '${dl.label}')">
+            <span>${dl.label}</span>
+            <i class="fa-solid fa-download"></i>
+        </button>
+    `).join('');
+
+    // Montagem Final do HTML
     modContent.innerHTML = `
-        <h1 style="margin-bottom:15px; font-size:1.4rem;">${mod.title}</h1>
+        <h1 class="detail-title">${mod.title}</h1>
         
         <div class="slideshow-container">
             ${imagesHtml}
         </div>
         
         ${videoHtml}
+        ${instructionsHtml}
 
         <div class="download-section">
-            <p style="color:#aaa; font-size:0.9rem; margin-bottom:5px;">Download Links:</p>
+            <p class="dl-header">Secure Download Links:</p>
             ${buttonsHtml}
         </div>
     `;
 }
+
 
 /* =========================================
    💰 MONETIZATION LOGIC (CRITICAL)
